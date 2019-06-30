@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_prison_escape" default="compile.module.prison_escape">
+  <dirname property="module.prison_escape.basedir" file="${ant.file.module_prison_escape}"/>
+  
+  <property name="module.jdk.home.prison_escape" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.prison_escape" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.prison_escape" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.prison_escape" value="-encoding UTF-8 -source 8 -target \1.8 ${compiler.args}"/>
+  
+  <property name="prison_escape.output.dir" value="${module.prison_escape.basedir}/../target/classes"/>
+  <property name="prison_escape.testoutput.dir" value="${module.prison_escape.basedir}/../target/test-classes"/>
+  
+  <path id="prison_escape.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="prison_escape.module.production.classpath">
+    <path refid="${module.jdk.classpath.prison_escape}"/>
+    <path refid="library.maven:_org.bukkit:bukkit:1.9.4-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.maven:_junit:junit:4.10.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:17.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.maven:_org.avaje:ebean:2.8.1.classpath"/>
+    <path refid="library.maven:_javax.persistence:persistence-api:1.0.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.15.classpath"/>
+    <path refid="library.maven:_org.spigotmc:spigot-api:1.9.4-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_net.md-5:bungeecord-chat:1.9-snapshot.classpath"/>
+    <path refid="library.maven:_com.zaxxer:hikaricp:3.3.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_me.clip:placeholderapi:2.10.2.classpath"/>
+    <path refid="library.maven:_com.github.milkbowl:vaultapi:1.7.classpath"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/worldguard-6.1.2 (1).jar"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/worldedit-bukkit-6.1.2.jar"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/WGRegionEvents.jar"/>
+  </path>
+  
+  <path id="prison_escape.runtime.production.module.classpath">
+    <pathelement location="${prison_escape.output.dir}"/>
+    <path refid="library.maven:_com.zaxxer:hikaricp:3.3.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/worldguard-6.1.2 (1).jar"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/worldedit-bukkit-6.1.2.jar"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/WGRegionEvents.jar"/>
+  </path>
+  
+  <path id="prison_escape.module.classpath">
+    <path refid="${module.jdk.classpath.prison_escape}"/>
+    <pathelement location="${prison_escape.output.dir}"/>
+    <path refid="library.maven:_org.bukkit:bukkit:1.9.4-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.maven:_junit:junit:4.10.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:17.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.maven:_org.avaje:ebean:2.8.1.classpath"/>
+    <path refid="library.maven:_javax.persistence:persistence-api:1.0.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.15.classpath"/>
+    <path refid="library.maven:_org.spigotmc:spigot-api:1.9.4-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_net.md-5:bungeecord-chat:1.9-snapshot.classpath"/>
+    <path refid="library.maven:_com.zaxxer:hikaricp:3.3.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_me.clip:placeholderapi:2.10.2.classpath"/>
+    <path refid="library.maven:_com.github.milkbowl:vaultapi:1.7.classpath"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/worldguard-6.1.2 (1).jar"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/worldedit-bukkit-6.1.2.jar"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/WGRegionEvents.jar"/>
+  </path>
+  
+  <path id="prison_escape.runtime.module.classpath">
+    <pathelement location="${prison_escape.testoutput.dir}"/>
+    <pathelement location="${prison_escape.output.dir}"/>
+    <path refid="library.maven:_org.bukkit:bukkit:1.9.4-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_commons-lang:commons-lang:2.6.classpath"/>
+    <path refid="library.maven:_com.googlecode.json-simple:json-simple:1.1.1.classpath"/>
+    <path refid="library.maven:_junit:junit:4.10.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.1.classpath"/>
+    <path refid="library.maven:_com.google.guava:guava:17.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.2.4.classpath"/>
+    <path refid="library.maven:_org.avaje:ebean:2.8.1.classpath"/>
+    <path refid="library.maven:_javax.persistence:persistence-api:1.0.classpath"/>
+    <path refid="library.maven:_org.yaml:snakeyaml:1.15.classpath"/>
+    <path refid="library.maven:_org.spigotmc:spigot-api:1.9.4-r0.1-snapshot.classpath"/>
+    <path refid="library.maven:_net.md-5:bungeecord-chat:1.9-snapshot.classpath"/>
+    <path refid="library.maven:_com.zaxxer:hikaricp:3.3.1.classpath"/>
+    <path refid="library.maven:_org.slf4j:slf4j-api:1.7.25.classpath"/>
+    <path refid="library.maven:_me.clip:placeholderapi:2.10.2.classpath"/>
+    <path refid="library.maven:_com.github.milkbowl:vaultapi:1.7.classpath"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/worldguard-6.1.2 (1).jar"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/worldedit-bukkit-6.1.2.jar"/>
+    <pathelement location="${basedir}/../../../Backups/Main Plugins (Voor elke server basis)/WGRegionEvents.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.prison_escape">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.prison_escape">
+    <patternset refid="excluded.from.module.prison_escape"/>
+  </patternset>
+  
+  <path id="prison_escape.module.sourcepath">
+    <dirset dir="${module.prison_escape.basedir}/../../Prison Escape">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.prison_escape" depends="compile.module.prison_escape.production,compile.module.prison_escape.tests" description="Compile module Prison Escape"/>
+  
+  <target name="compile.module.prison_escape.production" depends="register.custom.compilers" description="Compile module Prison Escape; production classes">
+    <mkdir dir="${prison_escape.output.dir}"/>
+    <javac2 destdir="${prison_escape.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.prison_escape}/javac">
+      <compilerarg line="${compiler.args.prison_escape}"/>
+      <bootclasspath refid="prison_escape.module.bootclasspath"/>
+      <classpath refid="prison_escape.module.production.classpath"/>
+      <src refid="prison_escape.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.prison_escape"/>
+    </javac2>
+    
+    <copy todir="${prison_escape.output.dir}">
+      <fileset dir="${module.prison_escape.basedir}/../src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.prison_escape.basedir}/../src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.prison_escape.tests" depends="register.custom.compilers,compile.module.prison_escape.production" description="compile module Prison Escape; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.prison_escape" description="cleanup module">
+    <delete dir="${prison_escape.output.dir}"/>
+    <delete dir="${prison_escape.testoutput.dir}"/>
+  </target>
+</project>

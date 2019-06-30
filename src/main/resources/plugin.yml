@@ -1,0 +1,28 @@
+name: PrisonEscape
+version: ${project.version}
+main: maiky1304.dev.PrisonEscape
+api-version: 1.13
+authors: [Maiky1304, GekkeGlenn]
+description: PrisonEscape Plugin
+depend: [Vault, LuckPerms]
+commands:
+  glow:
+    description: Geef een enchantment aan een item zonder dat het Enchantment eronder staat.
+    usage: '/glow'
+    permission: 'minetitan.glow'
+  rename:
+    description: Geef een item een custom name doormiddel van het rename commando
+    usage: '/rename'
+    permission: 'minetitan.rename'
+  setnaamkleur:
+    description: Wijzig iemand zijn naamkleur doormiddel van dit commando
+    usage: '/setnaamkleur <speler> <kleur>'
+    permission: 'minetitan.setnaamkleur'
+  tools:
+    description: Toolcommando om de PrisonTools te beheren.
+    usage: '/tools <arg>'
+    permission: 'minetitan.tools'
+  prisonitems:
+    description: PrisonItems commando
+    usage: '/prisonitems'
+    permission: 'minetitan.prisonitems'
