@@ -107,12 +107,14 @@ public final class PrisonEscape extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new HookedWithToolsEvents(), this);
         Bukkit.getPluginManager().registerEvents(new BreakHandler(), this);
         Bukkit.getPluginManager().registerEvents(new ItemGUI_Events(), this);
+        Bukkit.getPluginManager().registerEvents(new DoorSystemEvents(), this);
         registerCommand(new GlowCommand(), "glow");
         registerCommand(new RenameCommand(), "rename");
         registerCommand(new SetNaamkleur(), "setnaamkleur");
         registerCommand(new ToolsCMD(this), "tools");
-        registerCommand(new ItemDatabase(), "prigsonitems");
+        registerCommand(new ItemDatabase(), "prisonitems");
         registerCommand(new TimeCommand(), "time");
+        registerCommand(new KeyCommand(), "sleutel");
 
         getTeamAssigner().registerTeams();
     }

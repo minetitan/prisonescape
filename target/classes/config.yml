@@ -1,0 +1,15 @@
+settings:
+  #Scoreboard Title
+  scoreboard-title: "&f&lPrisonEscape"
+  scoreboard-lines:
+    - '&7'
+    - '&aLevel &8»'
+    - '&7Level %level%'
+    - '&8'
+    - '&aTijd &8»'
+    - '&7%time%'
+    - '&9'
+    - '&aCelblok &8»'
+    - '&7{regionname}'
+    - '&0'
+    - '&aplay.minetitan.nl'

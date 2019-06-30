@@ -1,5 +1,5 @@
 name: PrisonEscape
-version: ${project.version}
+version: 1.0-SNAPSHOT
 main: maiky1304.dev.PrisonEscape
 api-version: 1.13
 authors: [Maiky1304, GekkeGlenn]
