@@ -20,7 +20,13 @@ public class PlayerAsyncChat implements Listener {
         String chatkleur = "&7";
 
         String format = "";
-        format = format + "&8[&7" + job + "&8]";
+
+        if (pm.getPrefix().equalsIgnoreCase("none")){
+            format = format + "&8[&7" + job + "&8]";
+        }else{
+            format = format + "&8[&7" + pm.getPrefix() + "&8] " + "&8[&7" + job + "&8]";
+        }
+
         if (kleur == "7"){
             format = format + " &" + kleur + p.getName() + ": %s";
         }else{

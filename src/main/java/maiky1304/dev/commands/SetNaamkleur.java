@@ -1,6 +1,7 @@
 package maiky1304.dev.commands;
 
 import maiky1304.dev.util.PlayerManager;
+import maiky1304.dev.util.ScoreboardUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;

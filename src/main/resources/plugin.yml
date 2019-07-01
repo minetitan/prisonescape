@@ -42,3 +42,7 @@ commands:
     description: Verander een speler zijn prefix
     permission: 'minetitan.setprefix'
     aliases: [setnaamkleur,prefix]
+  setbaan:
+    description: Verander een speler zijn job
+    permission: 'minetitan.setjob'
+    aliases: [setjob,job]

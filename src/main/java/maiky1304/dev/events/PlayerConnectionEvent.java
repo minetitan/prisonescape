@@ -53,18 +53,6 @@ public class PlayerConnectionEvent implements Listener {
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a&lMine&2&lTitan&8] &7Je data wordt nu ingeladen in de database..."));
         }
 
-
-        PrisonEscape.getTeamAssigner().addPlayer(p);
-        String team = "";
-
-        for (Team t : PrisonEscape.getTeamAssigner().getBoard().getTeams()){
-            if (t.getPlayers().contains(p)){
-                team = t.getName();
-            }
-        }
-
-        Bukkit.getConsoleSender().sendMessage("Added " + p.getName() + " to " + team + ".");
-
         ScoreboardUtil util = new ScoreboardUtil(p);
         util.show();
     }

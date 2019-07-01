@@ -50,6 +50,7 @@ public class PlayerManager {
      */
     public void createUser(){
         plugin.getUsers().getConfig().set(uuid.toString() + ".job", "Gevangene");
+        plugin.getUsers().getConfig().set(uuid.toString() + ".prefix", "none");
         plugin.getUsers().getConfig().set(uuid.toString() + ".naamkleur", "7");
         plugin.getUsers().getConfig().set(uuid.toString() + ".username", Bukkit.getPlayer(uuid).getName());
         plugin.getUsers().getConfig().set(uuid.toString() + ".time.days", 0);
@@ -192,6 +193,7 @@ public class PlayerManager {
             return;
         }
         plugin.getUsers().getConfig().set(uuid.toString() + ".job", job);
+        plugin.getUsers().saveConfig();
     }
 
     public String getJob(){
@@ -201,12 +203,28 @@ public class PlayerManager {
         return plugin.getUsers().getConfig().getString(uuid.toString() + ".job");
     }
 
+    public void setPrefix(String prefix) {
+        if (!existsInDatabase()){
+            return;
+        }
+        plugin.getUsers().getConfig().set(uuid.toString() + ".prefix", prefix);
+        plugin.getUsers().saveConfig();
+    }
+
+    public String getPrefix(){
+        if (!existsInDatabase()){
+            return "?";
+        }
+        return plugin.getUsers().getConfig().getString(uuid.toString() + ".prefix");
+    }
+
     public void setNaamkleur(String job) {
         if (!existsInDatabase()){
             return;
         }
 
         plugin.getUsers().getConfig().set(uuid.toString() + ".naamkleur", job);
+        plugin.getUsers().saveConfig();
     }
 
     public String getNaamkleur(){

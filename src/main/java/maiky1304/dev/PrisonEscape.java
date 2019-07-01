@@ -7,7 +7,6 @@ import maiky1304.dev.events.*;
 import maiky1304.dev.storage.ConfigurationHandler;
 import maiky1304.dev.util.RunnerInstance;
 import maiky1304.dev.util.ScoreboardUtil;
-import maiky1304.dev.util.TeamAssigner;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
@@ -36,8 +35,6 @@ public final class PrisonEscape extends JavaPlugin {
     private static ConfigurationHandler pickaxes;
     private static ConfigurationHandler lootchests;
 
-    private static TeamAssigner teamAssigner;
-
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
     private static Permission perms = null;
@@ -45,7 +42,6 @@ public final class PrisonEscape extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        teamAssigner = new TeamAssigner(this);
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
@@ -125,18 +121,7 @@ public final class PrisonEscape extends JavaPlugin {
         registerCommand(new PayCommand(), "pay");
         registerCommand(new LootchestCommand(), "lootchest");
         registerCommand(new SetPrefixCommand(), "setprefix");
-
-        Bukkit.getScheduler().runTaskLater(this, new BukkitRunnable() {
-            @Override
-            public void run() {
-                getTeamAssigner().registerTeams();
-            }
-        },80L);
-    }
-
-    @Override
-    public void onDisable(){
-        getTeamAssigner().unregisterTeams();
+        registerCommand(new SetBaanCommand(), "setbaan");
     }
 
     private boolean setupEconomy() {
@@ -161,10 +146,6 @@ public final class PrisonEscape extends JavaPlugin {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         perms = rsp.getProvider();
         return perms != null;
-    }
-
-    public static TeamAssigner getTeamAssigner() {
-        return teamAssigner;
     }
 
     public static ConfigurationHandler getLootchests() {

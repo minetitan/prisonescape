@@ -1,8 +1,8 @@
 package maiky1304.dev.util;
 
 import maiky1304.dev.PrisonEscape;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -12,6 +12,8 @@ import java.text.DecimalFormat;
 import java.text.FieldPosition;
 import java.text.NumberFormat;
 import java.text.ParsePosition;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class ScoreboardUtil {
@@ -91,11 +93,30 @@ public class ScoreboardUtil {
             newLine = newLine.replaceAll("\\{onlinetime}", pm.getDays() + "d, " + pm.getHours() + "u, " + pm.getMinutes() + "min");
             newLine = newLine.replaceAll("\\{money}", "€" + balance);
             newLine = newLine.replaceAll("\\{regionname}", pm.getCurrentRegion());
+            newLine = newLine.replaceAll("\\{job}", pm.getJob());
 
             objective.getScore(ChatColor.translateAlternateColorCodes('&', newLine)).setScore(size);
 
             size -= 1;
         }
+
+        List<String> colors = new ArrayList<>();
+
+        for (char c : ChatColor.ALL_CODES.toCharArray()){
+            colors.add(String.valueOf(c));
+        }
+
+        if (!board.getTeams().contains(colors.get(0))) {
+            for (String color : colors){
+                board.registerNewTeam(color);
+                board.getTeam(color).setPrefix("§" + color);
+                Bukkit.getConsoleSender().sendMessage("Created team " + color);
+            }
+        }
+
+        PlayerManager pm = new PlayerManager(p.getUniqueId());
+        board.getTeam(plugin.getUsers().getConfig().getString(p.getUniqueId().toString() + ".naamkleur")).addEntry(p.getName());
+
 
         /**
          * Set the player his/her's scoreboard to the scoreboard that was made here.
