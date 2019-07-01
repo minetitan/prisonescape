@@ -1,12 +1,14 @@
 package maiky1304.dev.events;
 
 import maiky1304.dev.PrisonEscape;
+import maiky1304.dev.util.Item;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
@@ -15,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
@@ -113,18 +116,36 @@ public class LootChest implements Listener {
                     }
                     next += 1;
                 }
+                for (int i = 0; i < 1; i++){
+                    ItemStack one = PrisonEscape.getLootchests().getConfig().getItemStack("loot-type." + choiceString + "." + randomInt(1, choicesOfItems));
 
-                int itemID = 1;
-                for (int i = 0; i < 5; i++){
-                    ItemStack one = PrisonEscape.getLootchests().getConfig().getItemStack("loot-type." + choiceString + "." + itemID);
-
-                    e.getInventory().addItem(one);
-
-                    if (itemID != 5){
-                        itemID += 1;
-                    }
+                    e.getInventory().setItem(13, one);
                 }
 
+                for (int i = 0; i < 9; i++){
+                    e.getInventory().setItem(i, new Item(Material.STAINED_GLASS_PANE, 1, (short)8, " ", Arrays.asList(""), false, true).create());
+                }
+
+                for (int i = 8; i < 13; i++){
+                    e.getInventory().setItem(i, new Item(Material.STAINED_GLASS_PANE, 1, (short)8, " ", Arrays.asList(""), false, true).create());
+                }
+
+                for (int i = 8; i < 13; i++){
+                    e.getInventory().setItem(i, new Item(Material.STAINED_GLASS_PANE, 1, (short)8, " ", Arrays.asList(""), false, true).create());
+                }
+
+                for (int i = 14; i < 29; i++){
+                    e.getInventory().setItem(i, new Item(Material.STAINED_GLASS_PANE, 1, (short)8, " ", Arrays.asList(""), false, true).create());
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onInvClick(InventoryClickEvent inv){
+        if (inv.getInventory().getName().equalsIgnoreCase("Lootchest")){
+            if (inv.getCurrentItem().getType() == Material.STAINED_GLASS_PANE){
+                inv.setCancelled(true);
             }
         }
     }

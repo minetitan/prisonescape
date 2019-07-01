@@ -124,6 +124,7 @@ public final class PrisonEscape extends JavaPlugin {
         registerCommand(new KeyCommand(), "sleutel");
         registerCommand(new PayCommand(), "pay");
         registerCommand(new LootchestCommand(), "lootchest");
+        registerCommand(new SetPrefixCommand(), "setprefix");
 
         Bukkit.getScheduler().runTaskLater(this, new BukkitRunnable() {
             @Override

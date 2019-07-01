@@ -85,7 +85,7 @@ public class DoorSystemEvents implements Listener {
                                         }
                                         this.cancel();
                                     }
-                                },20L*5L);
+                                },20L*3L);
                             }
                         }else{
                             e.setCancelled(true);

@@ -48,6 +48,8 @@ public class PayCommand implements CommandExecutor {
                 return true;
             }
 
+            Player onlinePlayer = Bukkit.getPlayer(speler);
+
             if (p.getName().equalsIgnoreCase(speler)){
                 p.sendMessage(ChatColor.RED + "Je kunt jezelf geen geld overmaken!");
                 return true;
@@ -62,24 +64,21 @@ public class PayCommand implements CommandExecutor {
             balance = balance.replaceFirst(" €", "");
 
             if (!PrisonEscape.getEconomy().has(p, amount)){
-                p.sendMessage(ChatColor.RED + "Jij hebt geen §f" + balance + "§c.");
+                p.sendMessage(ChatColor.RED + "Jij hebt geen §f€" + balance + "§c.");
                 return true;
             }
 
-            p.sendMessage(ChatColor.WHITE + "Je hebt §c" + balance + " §fovergemaakt naar §c" + player.getName() + "§f.");
+            p.sendMessage(ChatColor.WHITE + "Je hebt §c€" + balance + " §fovergemaakt naar §c" + player.getName() + "§f.");
             Player temp = Bukkit.getPlayer(speler);
-            temp.sendMessage(ChatColor.WHITE + "Je hebt §c" + balance + " §fontvangen van §c" + p.getName() + "§f.");
+            temp.sendMessage(ChatColor.WHITE + "Je hebt §c€" + balance + " §fontvangen van §c" + p.getName() + "§f.");
 
-            PlayerManager p1 = new PlayerManager(p.getUniqueId());
-            PlayerManager p2 = new PlayerManager(player.getUniqueId());
-
-            p1.takeMoney(amount);
-            p2.depositMoney(amount);
+            PrisonEscape.getEconomy().withdrawPlayer(p, amount);
+            PrisonEscape.getEconomy().depositPlayer(onlinePlayer, amount);
 
             ScoreboardUtil util = new ScoreboardUtil(p);
             util.show();
 
-            ScoreboardUtil util2 = new ScoreboardUtil(temp);
+            ScoreboardUtil util2 = new ScoreboardUtil(onlinePlayer);
             util2.show();
             return true;
         }

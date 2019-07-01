@@ -38,3 +38,7 @@ commands:
     usage: '/pay <speler> <amount>'
   lootchest:
     description: Lootchest commando
+  setprefix:
+    description: Verander een speler zijn prefix
+    permission: 'minetitan.setprefix'
+    aliases: [setnaamkleur,prefix]

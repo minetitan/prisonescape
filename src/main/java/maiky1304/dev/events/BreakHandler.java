@@ -30,8 +30,10 @@ public class BreakHandler implements Listener {
 
     @EventHandler
     public void onBlock(BlockBreakEvent e){
+        ItemMeta metaData = e.getPlayer().getItemInHand().getItemMeta();
         if (e.getBlock().getType() == Material.getMaterial(101)){
             if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase("§6§lTang")){
+                e.setCancelled(true);
                 //      - Â§7Je kunt deze Â§6tang nog Â§64 Â§7keer gebruiken.
 
                 ItemMeta meta = e.getPlayer().getItemInHand().getItemMeta();
@@ -52,7 +54,6 @@ public class BreakHandler implements Listener {
                 if (e.getBlock().getType() != Material.getMaterial(101)){
                     e.setExpToDrop(0);
                     e.setCancelled(true);
-                    e.getPlayer().getItemInHand().setDurability(getDamage());
                 }else{
                     meta.setLore(
                             Arrays.asList(
@@ -61,21 +62,24 @@ public class BreakHandler implements Listener {
                             )
                     );
 
+                    e.getPlayer().getItemInHand().setItemMeta(meta);
+
+                    e.getPlayer().sendMessage(ChatColor.GREEN + "Je hebt tralies gebroken dit blok spawnt weer terug in 10 minuten.");
+
                     if ((uses - 1) <= 0){
                         e.getPlayer().sendMessage(ChatColor.RED + "Oh nee! Je tool is gebroken koop een nieuwe of vind een nieuwe!");
                         e.getPlayer().setItemInHand(null);
                     }
 
-                    e.getPlayer().sendMessage(ChatColor.GREEN + "Je hebt tralies gebroken dit blok spawnt weer terug in 10 minuten.");
-
                     String worldName = e.getPlayer().getWorld().getName();
+                    Bukkit.getWorld(worldName).getBlockAt(e.getBlock().getLocation()).setType(Material.AIR);
 
                     Bukkit.getScheduler().runTaskLater(PrisonEscape.getPlugin(PrisonEscape.class), new BukkitRunnable() {
                         @Override
                         public void run() {
                             Bukkit.getWorld(worldName).getBlockAt(e.getBlock().getLocation()).setType(Material.getMaterial(101));
                         }
-                    }, 20L*600L);
+                    }, 20L*3); // 600L
                 }
 
                 // meta.setLore(Arrays.asList(meta.getLore().get(0), meta.getLore().get(1).replace("Â§7Je kunt deze Â§6tang nog Â§64 Â§7keer gebruiken.", "")));
