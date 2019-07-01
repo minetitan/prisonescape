@@ -33,3 +33,8 @@ commands:
     description: Verkrijg een sleutel
     usage: '/sleutel <region>'
     permission: 'minetitan.sleutel'
+  pay:
+    description: Betaal iemand met dit commando
+    usage: '/pay <speler> <amount>'
+  lootchest:
+    description: Lootchest commando

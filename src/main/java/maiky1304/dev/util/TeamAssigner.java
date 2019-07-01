@@ -28,12 +28,29 @@ public class TeamAssigner {
         for (String color : colors){
             board.registerNewTeam(color);
             board.getTeam(color).setPrefix("§" + color);
+            Bukkit.getConsoleSender().sendMessage("Created team " + color);
+        }
+    }
+
+    public final void unregisterTeams(){
+        List<String> colors = new ArrayList<>();
+
+        for (char c : ChatColor.ALL_CODES.toCharArray()){
+            colors.remove(String.valueOf(c));
+        }
+
+        for (String color : colors){
+            board.getTeam(color).unregister();
         }
     }
 
     public void addPlayer(Player p){
         PlayerManager pm = new PlayerManager(p.getUniqueId());
-        board.getTeam(pm.getNaamkleur()).addEntry(p.getName());
+        board.getTeam(plugin.getUsers().getConfig().getString(p.getUniqueId().toString() + ".naamkleur")).addEntry(p.getName());
         p.setScoreboard(board);
+    }
+
+    public Scoreboard getBoard(){
+        return board;
     }
 }

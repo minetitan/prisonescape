@@ -21,6 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
 import java.util.logging.Logger;
@@ -33,6 +34,7 @@ public final class PrisonEscape extends JavaPlugin {
     private static ConfigurationHandler kleding;
     private static ConfigurationHandler wapens;
     private static ConfigurationHandler pickaxes;
+    private static ConfigurationHandler lootchests;
 
     private static TeamAssigner teamAssigner;
 
@@ -61,6 +63,9 @@ public final class PrisonEscape extends JavaPlugin {
 
         pickaxes = new ConfigurationHandler(this, "pickaxes.yml");
         pickaxes.loadConfig();
+
+        lootchests = new ConfigurationHandler(this, "lootchests.yml");
+        lootchests.loadConfig();
 
         for (String key : getTools().getConfig().getKeys(false)){
             if (key.equalsIgnoreCase("tang")){
@@ -108,6 +113,8 @@ public final class PrisonEscape extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new BreakHandler(), this);
         Bukkit.getPluginManager().registerEvents(new ItemGUI_Events(), this);
         Bukkit.getPluginManager().registerEvents(new DoorSystemEvents(), this);
+        Bukkit.getPluginManager().registerEvents(new LootChest(), this);
+
         registerCommand(new GlowCommand(), "glow");
         registerCommand(new RenameCommand(), "rename");
         registerCommand(new SetNaamkleur(), "setnaamkleur");
@@ -115,9 +122,22 @@ public final class PrisonEscape extends JavaPlugin {
         registerCommand(new ItemDatabase(), "prisonitems");
         registerCommand(new TimeCommand(), "time");
         registerCommand(new KeyCommand(), "sleutel");
+        registerCommand(new PayCommand(), "pay");
+        registerCommand(new LootchestCommand(), "lootchest");
 
-        getTeamAssigner().registerTeams();
+        Bukkit.getScheduler().runTaskLater(this, new BukkitRunnable() {
+            @Override
+            public void run() {
+                getTeamAssigner().registerTeams();
+            }
+        },80L);
     }
+
+    @Override
+    public void onDisable(){
+        getTeamAssigner().unregisterTeams();
+    }
+
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
@@ -144,6 +164,10 @@ public final class PrisonEscape extends JavaPlugin {
 
     public static TeamAssigner getTeamAssigner() {
         return teamAssigner;
+    }
+
+    public static ConfigurationHandler getLootchests() {
+        return lootchests;
     }
 
     public static ConfigurationHandler getTools() {

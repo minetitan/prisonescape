@@ -5,7 +5,6 @@ import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import com.zaxxer.hikari.HikariDataSource;
 import maiky1304.dev.PrisonEscape;
 import maiky1304.dev.events.PlayerConnectionEvent;
 import org.bukkit.Bukkit;

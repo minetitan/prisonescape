@@ -4,6 +4,7 @@ import maiky1304.dev.PrisonEscape;
 import maiky1304.dev.Timer;
 import maiky1304.dev.util.PlayerManager;
 import maiky1304.dev.util.ScoreboardUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,7 +53,17 @@ public class PlayerConnectionEvent implements Listener {
             p.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&a&lMine&2&lTitan&8] &7Je data wordt nu ingeladen in de database..."));
         }
 
+
         PrisonEscape.getTeamAssigner().addPlayer(p);
+        String team = "";
+
+        for (Team t : PrisonEscape.getTeamAssigner().getBoard().getTeams()){
+            if (t.getPlayers().contains(p)){
+                team = t.getName();
+            }
+        }
+
+        Bukkit.getConsoleSender().sendMessage("Added " + p.getName() + " to " + team + ".");
 
         ScoreboardUtil util = new ScoreboardUtil(p);
         util.show();

@@ -67,6 +67,10 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.sk89q.com/artifactory/repo</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -81,11 +85,6 @@
             <artifactId>spigot-api</artifactId>
             <version>1.9.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>3.3.1</version>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>

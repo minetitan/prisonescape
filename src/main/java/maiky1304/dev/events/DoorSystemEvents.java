@@ -56,7 +56,7 @@ public class DoorSystemEvents implements Listener {
                     PlayerManager pm = new PlayerManager(p.getUniqueId());
 
                     if (p.getItemInHand().getType() == this.keyMaterial){
-                        if (p.getItemInHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pm.getCurrentRegion())){
+                        if (p.getItemInHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pm.getCurrentRegion()) || p.getItemInHand().getItemMeta().getLore().get(0).equalsIgnoreCase("loper")){
                             if (door.isOpen()){
                                 ((Openable) door).setOpen(false);
                                 state.update();
@@ -92,6 +92,8 @@ public class DoorSystemEvents implements Listener {
                             p.sendMessage(ChatColor.RED + "Deze sleutel is niet bestemd voor deze deur!");
                             return;
                         }
+                    }else{
+                        p.sendMessage(ChatColor.RED + "Deze deur is op slot, gebruik een sleutel om deze deur te openen.");
                     }
                 }else {
                     if (e.getClickedBlock().getType() == Material.IRON_DOOR_BLOCK) {
@@ -102,7 +104,7 @@ public class DoorSystemEvents implements Listener {
                         PlayerManager pm = new PlayerManager(p.getUniqueId());
 
                         if (p.getItemInHand().getType() == this.keyMaterial){
-                            if (p.getItemInHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pm.getCurrentRegion())){
+                            if (p.getItemInHand().getItemMeta().getLore().get(0).equalsIgnoreCase(pm.getCurrentRegion()) || p.getItemInHand().getItemMeta().getLore().get(0).equalsIgnoreCase("loper")){
                                 if (door.isOpen()){
                                     ((Openable) door).setOpen(false);
                                     state.update();
@@ -138,6 +140,8 @@ public class DoorSystemEvents implements Listener {
                                 p.sendMessage(ChatColor.RED + "Deze sleutel is niet bestemd voor deze deur!");
                                 return;
                             }
+                        }else{
+                            p.sendMessage(ChatColor.RED + "Deze deur is op slot, gebruik een sleutel om deze deur te openen.");
                         }
                     }
                 }

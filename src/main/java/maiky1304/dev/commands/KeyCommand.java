@@ -21,6 +21,16 @@ public class KeyCommand implements CommandExecutor {
             if (args.length == 1){
                 String region = args[0];
 
+                if (region.equalsIgnoreCase("Loper")){
+                    if (!p.hasPermission("minetitan.create.loper")){
+                        p.sendMessage(ChatColor.RED + "Je hebt geen genoeg permissies om dit te doen!");
+                        return true;
+                    }
+                    p.getInventory().addItem(DoorSystemEvents.getKey(region));
+                    p.sendMessage(ChatColor.WHITE + "Er is een sleutel toegevoegd aan je inventory voor de region §c" + region + "§f.");
+                    return true;
+                }
+
                 p.getInventory().addItem(DoorSystemEvents.getKey(region));
                 p.sendMessage(ChatColor.WHITE + "Er is een sleutel toegevoegd aan je inventory voor de region §c" + region + "§f.");
                 return true;
