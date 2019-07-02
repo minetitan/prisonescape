@@ -47,7 +47,7 @@ public class SetBaanCommand implements CommandExecutor {
                 pm.setJob(job);
 
                 p.sendMessage(ChatColor.translateAlternateColorCodes('&',
-                        "&fJe hebt succesvol de job van &c" + player + " &fgewijzigd naar &c" + player + "&f."));
+                        "&fJe hebt succesvol de job van &c" + player + " &fgewijzigd naar &c" + job + "&f."));
                 return true;
             }
         }

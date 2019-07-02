@@ -9,30 +9,36 @@ commands:
   glow:
     description: Geef een enchantment aan een item zonder dat het Enchantment eronder staat.
     usage: '/glow'
-    permission: 'minetitan.glow'
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
   rename:
     description: Geef een item een custom name doormiddel van het rename commando
     usage: '/rename'
-    permission: 'minetitan.rename'
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
   setnaamkleur:
     description: Wijzig iemand zijn naamkleur doormiddel van dit commando
     usage: '/setnaamkleur <speler> <kleur>'
-    permission: 'minetitan.setnaamkleur'
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
   tools:
     description: Toolcommando om de PrisonTools te beheren.
     usage: '/tools <arg>'
-    permission: 'minetitan.tools'
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
   prisonitems:
     description: PrisonItems commando
     usage: '/prisonitems'
-    permission: 'minetitan.prisonitems'
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
   time:
     description: Time Info
     usage: '/time <info> <player>'
   sleutel:
     description: Verkrijg een sleutel
     usage: '/sleutel <region>'
-    permission: 'minetitan.sleutel'
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
   pay:
     description: Betaal iemand met dit commando
     usage: '/pay <speler> <amount>'
@@ -40,9 +46,24 @@ commands:
     description: Lootchest commando
   setprefix:
     description: Verander een speler zijn prefix
-    permission: 'minetitan.setprefix'
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
     aliases: [setnaamkleur,prefix]
   setbaan:
     description: Verander een speler zijn job
-    permission: 'minetitan.setjob'
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
     aliases: [setjob,job]
+  admins:
+    description: Admin commando voor admins
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
+    aliases: [admin,mod]
+  prisonescape:
+    description: Prison Escape commando dit command
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'
+  teleporter:
+    description: Teleporter commando
+    permission: 'minetitan.admin'
+    permission-message: 'Je hebt geen rechten om dit commando te gebruiken!'

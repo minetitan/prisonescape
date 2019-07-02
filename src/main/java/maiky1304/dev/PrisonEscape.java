@@ -34,6 +34,7 @@ public final class PrisonEscape extends JavaPlugin {
     private static ConfigurationHandler wapens;
     private static ConfigurationHandler pickaxes;
     private static ConfigurationHandler lootchests;
+    private static ConfigurationHandler teleporters;
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
@@ -62,6 +63,9 @@ public final class PrisonEscape extends JavaPlugin {
 
         lootchests = new ConfigurationHandler(this, "lootchests.yml");
         lootchests.loadConfig();
+
+        teleporters = new ConfigurationHandler(this, "teleporters.yml");
+        teleporters.loadConfig();
 
         for (String key : getTools().getConfig().getKeys(false)){
             if (key.equalsIgnoreCase("tang")){
@@ -110,6 +114,9 @@ public final class PrisonEscape extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new ItemGUI_Events(), this);
         Bukkit.getPluginManager().registerEvents(new DoorSystemEvents(), this);
         Bukkit.getPluginManager().registerEvents(new LootChest(), this);
+        Bukkit.getPluginManager().registerEvents(new AdminDoors(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockSeveralCommands(), this);
+        Bukkit.getPluginManager().registerEvents(new TeleporterCommand(), this);
 
         registerCommand(new GlowCommand(), "glow");
         registerCommand(new RenameCommand(), "rename");
@@ -122,6 +129,9 @@ public final class PrisonEscape extends JavaPlugin {
         registerCommand(new LootchestCommand(), "lootchest");
         registerCommand(new SetPrefixCommand(), "setprefix");
         registerCommand(new SetBaanCommand(), "setbaan");
+        registerCommand(new AdminsCommand(), "admins");
+        registerCommand(new TeleporterCommand(), "teleporter");
+        registerCommand(new PrisonEscapeCommand(), "prisonescape");
     }
 
     @Override
@@ -176,6 +186,10 @@ public final class PrisonEscape extends JavaPlugin {
 
     public static ConfigurationHandler getWapens() {
         return wapens;
+    }
+
+    public static ConfigurationHandler getTeleporters() {
+        return teleporters;
     }
 
     public static Economy getEconomy() {

@@ -51,6 +51,15 @@ public class LootchestCommand implements CommandExecutor {
 
                     p.sendMessage(ChatColor.RED + "Het item in je hand is §lsuccesvol §r§copgeslagen!");
                     return true;
+                }else if (args[0].equalsIgnoreCase("clear")) {
+                    String type = args[1];
+
+                    PrisonEscape.getLootchests().getConfig().set("loot-type." + type, null);
+                    PrisonEscape.getLootchests().saveConfig();
+
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&',
+                            "&cJe hebt succesvol de &citems &fvan &c" + type + " &fgereset!"));
+                    return true;
                 }else{
                     p.sendMessage(ChatColor.RED + "Ongeldig sub-commando probeer het later nog eens!");
                     return true;

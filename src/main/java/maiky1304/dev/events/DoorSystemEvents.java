@@ -19,13 +19,20 @@ import org.bukkit.block.BlockState;
 import org.bukkit.material.Openable;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static sun.plugin.javascript.navig.JSType.Location;
 
 public class DoorSystemEvents implements Listener {
 
     private static final Material keyMaterial = Material.TRIPWIRE_HOOK;
+    private static final List<String> overrideNames = PrisonEscape.getPlugin(PrisonEscape.class).getConfig().getStringList("admins");
+
+    public static List<String> getOverrideNames() {
+        return overrideNames;
+    }
 
     public static ItemStack getKey(String regionName){
         ItemStack item = new ItemStack(keyMaterial, 1, (short)0);
@@ -42,7 +49,11 @@ public class DoorSystemEvents implements Listener {
     public void onInteract(PlayerInteractEvent e){
         Player p = e.getPlayer();
 
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK){
+        if (overrideNames.contains(p.getName().toLowerCase())){
+            return;
+        }
+
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
             if (e.getClickedBlock().getType().toString().contains("DOOR")){
                 org.bukkit.Location blockUnder = new Location(e.getClickedBlock().getWorld(), e.getClickedBlock().getX(), e.getClickedBlock().getY()-1, e.getClickedBlock().getZ());
                 Block block = e.getClickedBlock().getWorld().getBlockAt(blockUnder);
@@ -61,13 +72,10 @@ public class DoorSystemEvents implements Listener {
                                 ((Openable) door).setOpen(false);
                                 state.update();
 
-                                p.sendMessage(ChatColor.WHITE + "Je hebt deze deur zojuist §cgesloten§f.");
                             }else{
                                 ((Openable) door).setOpen(true);
                                 state.update();
 
-                                p.sendMessage(ChatColor.WHITE + "Je hebt deze deur zojuist §cgeopend§f.");
-                                p.sendMessage(ChatColor.WHITE + "De deur wordt over §c5 §fseconden automatisch gesloten!");
 
                                 Bukkit.getScheduler().runTaskLater(PrisonEscape.getPlugin(PrisonEscape.class), new BukkitRunnable() {
                                     @Override
@@ -81,7 +89,6 @@ public class DoorSystemEvents implements Listener {
                                             ((Openable) door2).setOpen(false);
                                             state2.update();
 
-                                            p.sendMessage(ChatColor.WHITE + "De deur is zojuist automatisch §cgesloten§f.");
                                         }
                                         this.cancel();
                                     }
@@ -93,7 +100,9 @@ public class DoorSystemEvents implements Listener {
                             return;
                         }
                     }else{
-                        p.sendMessage(ChatColor.RED + "Deze deur is op slot, gebruik een sleutel om deze deur te openen.");
+                        if (!overrideNames.contains(p.getName().toLowerCase())){
+                            p.sendMessage(ChatColor.RED + "Deze deur is op slot, gebruik een sleutel om deze deur te openen.");
+                        }
                     }
                 }else {
                     if (e.getClickedBlock().getType() == Material.IRON_DOOR_BLOCK) {
@@ -133,7 +142,7 @@ public class DoorSystemEvents implements Listener {
                                             }
                                             this.cancel();
                                         }
-                                    },20L*5L);
+                                    },20L*3L);
                                 }
                             }else{
                                 e.setCancelled(true);
@@ -141,7 +150,9 @@ public class DoorSystemEvents implements Listener {
                                 return;
                             }
                         }else{
-                            p.sendMessage(ChatColor.RED + "Deze deur is op slot, gebruik een sleutel om deze deur te openen.");
+                            if (!overrideNames.contains(p.getName().toLowerCase())){
+                                p.sendMessage(ChatColor.RED + "Deze deur is op slot, gebruik een sleutel om deze deur te openen.");
+                            }
                         }
                     }
                 }
