@@ -18,6 +18,8 @@ import java.util.Locale;
 
 public class ScoreboardUtil {
 
+    public int created = 0;
+
     private static final PrisonEscape plugin = PrisonEscape.getPlugin(PrisonEscape.class);
 
     private Player p;
@@ -100,28 +102,9 @@ public class ScoreboardUtil {
             size -= 1;
         }
 
-        List<String> colors = new ArrayList<>();
-
-        for (char c : ChatColor.ALL_CODES.toCharArray()){
-            colors.add(String.valueOf(c));
-        }
-
-        if (!board.getTeams().contains(colors.get(0))) {
-            for (String color : colors){
-                board.registerNewTeam(color);
-                board.getTeam(color).setPrefix("§" + color);
-                Bukkit.getConsoleSender().sendMessage("Created team " + color);
-            }
-        }
-
-        PlayerManager pm = new PlayerManager(p.getUniqueId());
-        board.getTeam(plugin.getUsers().getConfig().getString(p.getUniqueId().toString() + ".naamkleur")).addEntry(p.getName());
-
-
         /**
          * Set the player his/her's scoreboard to the scoreboard that was made here.
          */
         p.setScoreboard(board);
     }
-
 }

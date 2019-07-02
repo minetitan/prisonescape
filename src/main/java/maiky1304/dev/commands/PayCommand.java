@@ -33,6 +33,11 @@ public class PayCommand implements CommandExecutor {
             String speler = args[0];
             String bedrag = args[1];
 
+            if (!(sender instanceof Player)){
+
+            }
+
+
             double amount;
 
             try {

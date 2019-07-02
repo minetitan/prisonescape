@@ -9,6 +9,8 @@ import maiky1304.dev.PrisonEscape;
 import maiky1304.dev.events.PlayerConnectionEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.sql.Connection;
@@ -249,6 +251,32 @@ public class PlayerManager {
 
     public double getBalance(){
         return PrisonEscape.getEconomy().getBalance(Bukkit.getPlayer(uuid));
+    }
+
+    public Location getRecentChest(){
+        if (!existsInDatabase()){
+            return null;
+        }
+
+        double x = plugin.getUsers().getConfig().getDouble(uuid.toString() + ".chest.recent.x"),
+                y = plugin.getUsers().getConfig().getDouble(uuid.toString() + ".chest.recent.y"),
+                z = plugin.getUsers().getConfig().getDouble(uuid.toString() + ".chest.recent.z");
+        World world = Bukkit.getWorld(plugin.getUsers().getConfig().getString(uuid.toString() + ".chest.recent.world"));
+
+        Location location = new Location(world, x, y, z);
+        return location;
+    }
+
+    public void setRecentChest(Location location){
+        if (!existsInDatabase()){
+            return;
+        }
+
+        plugin.getUsers().getConfig().set(uuid.toString() + ".chest.recent.world", location.getWorld().getName());
+        plugin.getUsers().getConfig().set(uuid.toString() + ".chest.recent.x", location.getX());
+        plugin.getUsers().getConfig().set(uuid.toString() + ".chest.recent.y", location.getY());
+        plugin.getUsers().getConfig().set(uuid.toString() + ".chest.recent.z", location.getZ());
+        plugin.getUsers().saveConfig();
     }
 
 }

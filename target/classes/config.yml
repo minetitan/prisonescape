@@ -1,3 +1,5 @@
+temp:
+  teamCreated: false
 settings:
   #Scoreboard Title
   scoreboard-title: "&f&lPrisonEscape"

@@ -124,6 +124,12 @@ public final class PrisonEscape extends JavaPlugin {
         registerCommand(new SetBaanCommand(), "setbaan");
     }
 
+    @Override
+    public void onDisable(){
+        getConfig().set("temp.teamCreated", false);
+        saveConfig();
+    }
+
     private boolean setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;

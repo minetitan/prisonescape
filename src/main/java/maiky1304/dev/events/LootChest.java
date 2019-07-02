@@ -2,24 +2,26 @@ package maiky1304.dev.events;
 
 import maiky1304.dev.PrisonEscape;
 import maiky1304.dev.util.Item;
+import maiky1304.dev.util.PlayerManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.entity.EntityType;
+import org.bukkit.event.EventException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
@@ -36,33 +38,63 @@ public class LootChest implements Listener {
      */
 
     @EventHandler
+    public void onInteract(PlayerInteractEvent e){
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
+            PlayerManager pm = new PlayerManager(e.getPlayer().getUniqueId());
+
+            if (e.getClickedBlock().getType() == Material.CHEST){
+                pm.setRecentChest(e.getClickedBlock().getLocation());
+            }
+        }
+    }
+
+
+    public int itemsInInventory(Inventory inventory) {
+        int i = 0;
+        for (ItemStack is : inventory.getStorageContents()) {
+            if (is != null){
+                i = i + is.getAmount();
+            }
+        }
+
+        return i;
+    }
+
+    @EventHandler
     public void onClose(InventoryCloseEvent e){
         if (e.getInventory().getName().equalsIgnoreCase("Lootchest")){
-           Block chest = e.getPlayer().getTargetBlock((Set<Material>)null, 200);
+           Block chest = e.getPlayer().getWorld().getBlockAt(new PlayerManager(e.getPlayer().getUniqueId()).getRecentChest());
            if (chest.getType() != Material.CHEST){
                return;
            }
 
-           Chest c = (Chest)chest.getState();
-           c.getBlockInventory().clear();
+           int items = itemsInInventory(e.getInventory());
 
-           chest.setType(Material.AIR);
-           chest.getLocation().getWorld().playEffect(chest.getLocation(), Effect.ENDER_SIGNAL, 2003);
-           chest.getLocation().getWorld().spawnEntity(chest.getLocation(), EntityType.FIREWORK);
+           if (items == 26){
+               Chest c = (Chest)chest.getState();
+               c.getBlockInventory().clear();
 
-           Bukkit.getScheduler().runTaskLater(PrisonEscape.getPlugin(PrisonEscape.class), new BukkitRunnable() {
-               @Override
-               public void run() {
-                   Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "setblock "  + chest.getLocation().getX() + " " + chest.getLocation().getY() + " " + chest.getLocation().getZ() + " minecraft:chest 1 replace {CustomName:\"Lootchest\"}");
-               }
-           },20L*cooldownInSeconds);
+               chest.setType(Material.AIR);
+               chest.getLocation().getWorld().playEffect(chest.getLocation(), Effect.ENDER_SIGNAL, 2003);
+               chest.getLocation().getWorld().spawnEntity(chest.getLocation(), EntityType.FIREWORK);
+
+               Bukkit.getScheduler().runTaskLater(PrisonEscape.getPlugin(PrisonEscape.class), new BukkitRunnable() {
+                   @Override
+                   public void run() {
+                       Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "setblock "  + chest.getLocation().getX() + " " + chest.getLocation().getY() + " " + chest.getLocation().getZ() + " minecraft:chest 1 replace {CustomName:\"Lootchest\"}");
+                   }},20L*cooldownInSeconds);
+           }
         }
     }
 
     @EventHandler
     public void onOpen(InventoryOpenEvent e){
+
         if (e.getInventory().getType() == InventoryType.CHEST){
             if (e.getInventory().getName().equalsIgnoreCase("Lootchest")){
+                if (e.getInventory().contains(Material.STAINED_GLASS_PANE)){
+                    return;
+                }
                 int wrongGrade = 0;
                 for (String type : PrisonEscape.getLootchests().getConfig().getConfigurationSection("loot-type").getKeys(false)){
                     if (PrisonEscape.getLootchests().getConfig().getConfigurationSection("loot-type." + type).getKeys(false).size() == 0){

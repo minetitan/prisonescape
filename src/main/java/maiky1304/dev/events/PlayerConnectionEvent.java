@@ -2,8 +2,10 @@ package maiky1304.dev.events;
 
 import maiky1304.dev.PrisonEscape;
 import maiky1304.dev.Timer;
+import maiky1304.dev.util.NametagChanger;
 import maiky1304.dev.util.PlayerManager;
 import maiky1304.dev.util.ScoreboardUtil;
+import maiky1304.dev.util.TeamAction;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -38,7 +40,11 @@ public class PlayerConnectionEvent implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         Player p = (Player)event.getPlayer();
+
         PlayerManager pm = new PlayerManager(p.getUniqueId());
+
+        Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "nte player " + p.getName() + " prefix &" + pm.getNaamkleur());
+
         // @param startLevel : Level is 1
         if (!pm.existsInDatabase()) {
             list.add(p);

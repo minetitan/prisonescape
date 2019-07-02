@@ -25,6 +25,7 @@ public class RunnerInstance {
                     int sec = pm.getSeconds();
 
                     pm.setSeconds(sec + 1);
+                    Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "nte player " + p.getName() + " prefix &" + pm.getNaamkleur());
 
                     if (sec >= 60){
                         pm.setSeconds(0);
